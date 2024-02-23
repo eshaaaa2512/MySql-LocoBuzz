@@ -1,3 +1,4 @@
+CreateTable
 
 CREATE TABLE WORKER --- creating the table 
 (
@@ -8,3 +9,4 @@ CREATE TABLE WORKER --- creating the table
 	 JOINING_DATE DATETIME,
 	 DEPARTMENT CHAR(25)
 );
+
