@@ -1,4 +1,5 @@
 
+Common Table Expression
 --- FOR AVGERAGE SALARY
 WITH CTE_AVGSALARY AS
 ( 
