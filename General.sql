@@ -1,22 +1,55 @@
----1)WHAT IS DATABASE?A database is information that is set up for easy access, management and updating. Computer databases typically store aggregations of data records or files that contain information, such as sales transactions, customer data, financials and product information.
+---MERGE IS THE COMBINATION OF INSERT,DELETE AND UPDATE STATEMENTS
 
----2)WHAT ARE DATABASE USED FOR? improve bussiness processes,keep track of customers,secure personal health information,store personal data.
 
----3)TYPES OF DATABASE? 
---retional database (This tabular approach defines data so it can be reorganized and accessed in many ways. )
 
---distributed database (This database stores records or files in several physical locations. Data processing is also spread out and replicated across different parts of the network.)
+CREATE TABLE EMPLOYEE_TARG
+( 
+       E_ID INT PRIMARY KEY,
+	   E_NAME CHAR(20),
+	   E_SALARY INT,
+	   E_AGE INT,
+	   E_GENDER CHAR(10),
+	   E_DEPT CHAR(30)
+)
 
---cloud ( These databases are built in a public, private or hybrid cloud for a virtualized environment. Users are charged based on how much storage and bandwidth they use. )
+CREATE TABLE EMPLOYEE_SOURCE
+( 
+       E_ID INT PRIMARY KEY,
+	   E_NAME CHAR(20),
+	   E_SALARY INT,
+	   E_AGE INT,
+	   E_GENDER CHAR(10),
+	   E_DEPT CHAR(30)
+)
 
---NoSQL( NoSQL databases are good when dealing with large collections of distributed data.)
+INSERT INTO EMPLOYEE_TARG VALUES(1,'SAM',93000,40,'MALE','OPERATIONS');
+INSERT INTO EMPLOYEE_TARG VALUES(2,'BOB',80000,21,'MALE','SUPPORT');
+INSERT INTO EMPLOYEE_TARG VALUES(3,'ANNE',130000,25,'FEMALE','ANALTYICS');
+INSERT INTO EMPLOYEE_TARG VALUES(6,'JEFF',112000,27,'MALE','OPERATIONS');
+INSERT INTO EMPLOYEE_TARG VALUES(7,'ADAM',100000,28,'MALE','CONTENT');
+INSERT INTO EMPLOYEE_TARG VALUES(8,'PRIYA',85000,37,'FEMALE','TECH');
 
---Object-oriented (These databases hold data created using object-oriented programming languages. They focus on organizing objects rather than actions and data rather than logic. For instance, an image data record would be a data object, rather than an alphanumeric value.)
+SELECT * FROM EMPLOYEE_TARG;
 
---Graph (These databases are a type of NoSQL database. They store, map and query relationships using concepts from graph theory.)
+INSERT INTO EMPLOYEE_SOURCE VALUES(1,'SAM',95000,45,'MALE','OPERATIONS');
+INSERT INTO EMPLOYEE_SOURCE VALUES(2,'BOB',80000,21,'MALE','SUPPORT');
+INSERT INTO EMPLOYEE_SOURCE VALUES(3,'ANNE',125000,25,'FEMALE','ANALTYICS');
+INSERT INTO EMPLOYEE_SOURCE VALUES(4,'JEFF',73000,30,'FEMALE','ANALTYICS');
+INSERT INTO EMPLOYEE_SOURCE VALUES(5,'ADAM',159000,33,'MALE','SALES');
+INSERT INTO EMPLOYEE_SOURCE VALUES(6,'PRIYA',112000,27,'FEMALE','OPERATIONS');
 
----4)WHAT ARE DATABASE CHALLENGES? data security, data integrity,database performance, database integration
 
----5) difference between mysql and sql?Mysql is a software and sql is a database language.
+SELECT * FROM EMPLOYEE_SOURCE;
 
----6) what is difference between relational and non relational database ? table format and Documents
+MERGE EMPLOYEE_TARG AS T
+USING EMPLOYEE_SOURCE AS S
+     ON T.E_ID=S.E_ID
+WHEN MATCHED
+     THEN UPDATE SET T.E_SALARY=S.E_SALARY,T.E_AGE=S.E_AGE
+WHEN NOT MATCHED
+     THEN INSERT (E_ID,E_NAME,E_SALARY,E_AGE,E_GENDER,E_DEPT)
+	 VALUES(S.E_ID,S.E_NAME,S.E_SALARY,S.E_AGE,S.E_GENDER,S.E_DEPT)
+WHEN NOT MATCHED BY SOURCE
+     THEN DELETE;
+
+SELECT * FROM EMPLOYEE_TARG;
