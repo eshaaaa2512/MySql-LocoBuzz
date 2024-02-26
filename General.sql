@@ -1,3 +1,4 @@
+ trycatch
 BEGIN TRY
        SELECT 100/0 AS 'DIVISION';
 END TRY
@@ -5,14 +6,3 @@ END TRY
 BEGIN CATCH
          SELECT ERROR_MESSAGE() AS 'ERROR MESSAGE';
 END CATCH
-
-
-
-
-
-
-
-
-
-
-
