@@ -1,8 +1,23 @@
 
- batch
--->A BATCH of sql statement is a group of two or more SQL statement or a single SQL statement
+-->GO COMMAND 
 
---> Explicit batch is two or more statement seperated by semicolon
--->eg) insert into employee(emp_name,emp_salary) values('brad',45000);
--->insert into employee(emp_name,emp_salary) values('joe',98000);
--->if a procedure conatin more than 1 statement it is considered to be a batch
+--> IT IS NOT A T-SQL STATEMENT; IT IS A COMMAND RECOGNIZED BY SQL SERVER ULTILITIES
+--> IT CAN BE EXECUTED BY ANY USER. iT REQUIRES NO PERMISSION
+-->IT SIGNALS THE END OF A BATCH TO THE SQL UTILITIES
+
+--> SYNTAX    GO[COUNT]  
+
+USE INFO_DB;
+
+GO
+
+--DECLARE @NAME VARCHAR(50); --SINGLE BATCH
+--SELECT @NAME = 'MICROSOFT';
+--GO
+ 
+DECLARE @NAME VARCHAR(50); 
+SELECT @NAME = 'MICROSOFT';
+SELECT @NAME AS 'NAME';
+GO
+
+SELECT @NAME;
