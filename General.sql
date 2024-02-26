@@ -1,4 +1,5 @@
 
+ script
 USE [SAMPLE INFORMATIONDB]
 GO
 /****** Object:  Table [dbo].[EMPLOYEE]    Script Date: 26-02-2024 11:06:49 ******/
