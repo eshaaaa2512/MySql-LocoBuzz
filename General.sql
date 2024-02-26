@@ -1,4 +1,5 @@
 
+ batch
 -->A BATCH of sql statement is a group of two or more SQL statement or a single SQL statement
 
 --> Explicit batch is two or more statement seperated by semicolon
