@@ -1,22 +1,142 @@
----1)WHAT IS DATABASE?A database is information that is set up for easy access, management and updating. Computer databases typically store aggregations of data records or files that contain information, such as sales transactions, customer data, financials and product information.
 
----2)WHAT ARE DATABASE USED FOR? improve bussiness processes,keep track of customers,secure personal health information,store personal data.
+USE [SAMPLE INFORMATIONDB]
+GO
+/****** Object:  Table [dbo].[EMPLOYEE]    Script Date: 26-02-2024 11:06:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EMPLOYEE](
+	[EMP_ID] [int] NOT NULL,
+	[EMP_NAME] [char](20) NULL,
+	[EMP_SALARY] [int] NULL,
+	[EMP_DEPTID] [varchar](2) NULL,
+	[PHONE] [varchar](10) NULL,
+ CONSTRAINT [FK_EMPLOYEE] PRIMARY KEY CLUSTERED 
+(
+	[EMP_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  View [dbo].[V_EMPNAMESALARY]    Script Date: 26-02-2024 11:06:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE VIEW [dbo].[V_EMPNAMESALARY]
+AS SELECT EMP_NAME,EMP_SALARY FROM EMPLOYEE;
+GO
+/****** Object:  Table [dbo].[DEPARTMENT]    Script Date: 26-02-2024 11:06:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DEPARTMENT](
+	[DEPT_ID] [varchar](2) NOT NULL,
+	[DEPT_NAME] [char](20) NULL,
+	[DEPT_LOCATION] [char](20) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[DEPT_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  View [dbo].[V_EMPDETAILSWITHDEPTNAME]    Script Date: 26-02-2024 11:06:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE VIEW [dbo].[V_EMPDETAILSWITHDEPTNAME]
+AS SELECT EMP_NAME,EMP_SALARY,DEPT_NAME
+FROM EMPLOYEE E INNER JOIN DEPARTMENT D
+ON E.EMP_DEPTID=D.DEPT_ID WHERE D.DEPT_NAME='MARKETING';
+GO
+/****** Object:  View [dbo].[V_EMPDETAILSWITHOUTSALARY]    Script Date: 26-02-2024 11:06:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE VIEW [dbo].[V_EMPDETAILSWITHOUTSALARY]
+AS SELECT EMP_NAME,DEPT_NAME
+FROM EMPLOYEE E INNER JOIN DEPARTMENT D
+ON E.EMP_DEPTID=D.DEPT_ID WHERE D.DEPT_NAME='MARKETING';
+GO
+/****** Object:  Table [dbo].[EMPLOYEE_SOURCE]    Script Date: 26-02-2024 11:06:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EMPLOYEE_SOURCE](
+	[E_ID] [int] NOT NULL,
+	[E_NAME] [char](20) NULL,
+	[E_SALARY] [int] NULL,
+	[E_AGE] [int] NULL,
+	[E_GENDER] [char](10) NULL,
+	[E_DEPT] [char](30) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[E_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[EMPLOYEE_TARG]    Script Date: 26-02-2024 11:06:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EMPLOYEE_TARG](
+	[E_ID] [int] NOT NULL,
+	[E_NAME] [char](20) NULL,
+	[E_SALARY] [int] NULL,
+	[E_AGE] [int] NULL,
+	[E_GENDER] [char](10) NULL,
+	[E_DEPT] [char](30) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[E_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[EMPLOYEE_TARGET]    Script Date: 26-02-2024 11:06:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[EMPLOYEE_TARGET](
+	[E_ID] [int] NOT NULL,
+	[E_NAME] [char](20) NULL,
+	[E_SALARY] [int] NULL,
+	[E_GENDER] [char](10) NULL,
+	[E_DEPT] [char](30) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[E_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+INSERT [dbo].[DEPARTMENT] ([DEPT_ID], [DEPT_NAME], [DEPT_LOCATION]) VALUES (N'D1', N'DEVELOPMENT         ', N'CALIFORNIA          ')
+INSERT [dbo].[DEPARTMENT] ([DEPT_ID], [DEPT_NAME], [DEPT_LOCATION]) VALUES (N'D2', N'MARKETING           ', N'MUMBAI              ')
+INSERT [dbo].[DEPARTMENT] ([DEPT_ID], [DEPT_NAME], [DEPT_LOCATION]) VALUES (N'D3', N'ACCOUNTS            ', N'NEW YORK            ')
+INSERT [dbo].[DEPARTMENT] ([DEPT_ID], [DEPT_NAME], [DEPT_LOCATION]) VALUES (N'D4', N'MANAGEMENT          ', N'SYDNEY              ')
+GO
+INSERT [dbo].[EMPLOYEE] ([EMP_ID], [EMP_NAME], [EMP_SALARY], [EMP_DEPTID], [PHONE]) VALUES (1111, N'STEVE               ', 35000, N'D1', NULL)
+INSERT [dbo].[EMPLOYEE] ([EMP_ID], [EMP_NAME], [EMP_SALARY], [EMP_DEPTID], [PHONE]) VALUES (1112, N'ADAM                ', 28000, N'D2', NULL)
+INSERT [dbo].[EMPLOYEE] ([EMP_ID], [EMP_NAME], [EMP_SALARY], [EMP_DEPTID], [PHONE]) VALUES (1113, N'JOHN                ', 50000, N'D3', NULL)
+INSERT [dbo].[EMPLOYEE] ([EMP_ID], [EMP_NAME], [EMP_SALARY], [EMP_DEPTID], [PHONE]) VALUES (1114, N'MIKE                ', 45000, N'D2', NULL)
+INSERT [dbo].[EMPLOYEE] ([EMP_ID], [EMP_NAME], [EMP_SALARY], [EMP_DEPTID], [PHONE]) VALUES (1115, N'PETER               ', 60000, N'D5', NULL)
+GO
+INSERT [dbo].[EMPLOYEE_SOURCE] ([E_ID], [E_NAME], [E_SALARY], [E_AGE], [E_GENDER], [E_DEPT]) VALUES (1, N'SAM                 ', 95000, 45, N'MALE      ', N'OPERATIONS                    ')
+INSERT [dbo].[EMPLOYEE_SOURCE] ([E_ID], [E_NAME], [E_SALARY], [E_AGE], [E_GENDER], [E_DEPT]) VALUES (2, N'BOB                 ', 80000, 21, N'MALE      ', N'SUPPORT                       ')
+INSERT [dbo].[EMPLOYEE_SOURCE] ([E_ID], [E_NAME], [E_SALARY], [E_AGE], [E_GENDER], [E_DEPT]) VALUES (3, N'ANNE                ', 125000, 25, N'FEMALE    ', N'ANALTYICS                     ')
+INSERT [dbo].[EMPLOYEE_SOURCE] ([E_ID], [E_NAME], [E_SALARY], [E_AGE], [E_GENDER], [E_DEPT]) VALUES (4, N'JEFF                ', 73000, 30, N'FEMALE    ', N'ANALTYICS                     ')
+INSERT [dbo].[EMPLOYEE_SOURCE] ([E_ID], [E_NAME], [E_SALARY], [E_AGE], [E_GENDER], [E_DEPT]) VALUES (5, N'ADAM                ', 159000, 33, N'MALE      ', N'SALES                         ')
+INSERT [dbo].[EMPLOYEE_SOURCE] ([E_ID], [E_NAME], [E_SALARY], [E_AGE], [E_GENDER], [E_DEPT]) VALUES (6, N'PRIYA               ', 112000, 27, N'FEMALE    ', N'OPERATIONS                    ')
+GO
+INSERT [dbo].[EMPLOYEE_TARG] ([E_ID], [E_NAME], [E_SALARY], [E_AGE], [E_GENDER], [E_DEPT]) VALUES (1, N'SAM                 ', 95000, 45, N'MALE      ', N'OPERATIONS                    ')
+INSERT [dbo].[EMPLOYEE_TARG] ([E_ID], [E_NAME], [E_SALARY], [E_AGE], [E_GENDER], [E_DEPT]) VALUES (2, N'BOB                 ', 80000, 21, N'MALE      ', N'SUPPORT                       ')
+INSERT [dbo].[EMPLOYEE_TARG] ([E_ID], [E_NAME], [E_SALARY], [E_AGE], [E_GENDER], [E_DEPT]) VALUES (3, N'ANNE                ', 125000, 25, N'FEMALE    ', N'ANALTYICS                     ')
+INSERT [dbo].[EMPLOYEE_TARG] ([E_ID], [E_NAME], [E_SALARY], [E_AGE], [E_GENDER], [E_DEPT]) VALUES (4, N'JEFF                ', 73000, 30, N'FEMALE    ', N'ANALTYICS                     ')
+INSERT [dbo].[EMPLOYEE_TARG] ([E_ID], [E_NAME], [E_SALARY], [E_AGE], [E_GENDER], [E_DEPT]) VALUES (5, N'ADAM                ', 159000, 33, N'MALE      ', N'SALES                         ')
+INSERT [dbo].[EMPLOYEE_TARG] ([E_ID], [E_NAME], [E_SALARY], [E_AGE], [E_GENDER], [E_DEPT]) VALUES (6, N'JEFF                ', 112000, 27, N'MALE      ', N'OPERATIONS                    ')
+GO
 
----3)TYPES OF DATABASE? 
---retional database (This tabular approach defines data so it can be reorganized and accessed in many ways. )
-
---distributed database (This database stores records or files in several physical locations. Data processing is also spread out and replicated across different parts of the network.)
-
---cloud ( These databases are built in a public, private or hybrid cloud for a virtualized environment. Users are charged based on how much storage and bandwidth they use. )
-
---NoSQL( NoSQL databases are good when dealing with large collections of distributed data.)
-
---Object-oriented (These databases hold data created using object-oriented programming languages. They focus on organizing objects rather than actions and data rather than logic. For instance, an image data record would be a data object, rather than an alphanumeric value.)
-
---Graph (These databases are a type of NoSQL database. They store, map and query relationships using concepts from graph theory.)
-
----4)WHAT ARE DATABASE CHALLENGES? data security, data integrity,database performance, database integration
-
----5) difference between mysql and sql?Mysql is a software and sql is a database language.
-
----6) what is difference between relational and non relational database ? table format and Documents
