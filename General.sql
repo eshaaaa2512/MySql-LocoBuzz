@@ -1,22 +1,30 @@
----1)WHAT IS DATABASE?A database is information that is set up for easy access, management and updating. Computer databases typically store aggregations of data records or files that contain information, such as sales transactions, customer data, financials and product information.
+--CREATE A STORED PROCEDURE THAT RETURNS ALL EMPLOYEES WHOSE DEPARTMENT LOCATION IS MUMBAI  
 
----2)WHAT ARE DATABASE USED FOR? improve bussiness processes,keep track of customers,secure personal health information,store personal data.
 
----3)TYPES OF DATABASE? 
---retional database (This tabular approach defines data so it can be reorganized and accessed in many ways. )
+USE INFO_DB;
 
---distributed database (This database stores records or files in several physical locations. Data processing is also spread out and replicated across different parts of the network.)
+EXECUTE DBO.PROC_ALLEMPLOYEEDETAILS;
 
---cloud ( These databases are built in a public, private or hybrid cloud for a virtualized environment. Users are charged based on how much storage and bandwidth they use. )
+SELECT * FROM DEPARTMENT;
 
---NoSQL( NoSQL databases are good when dealing with large collections of distributed data.)
+SELECT * FROM EMPLOYEE E 
+INNER JOIN DEPARTMENT D
+ON E.EMP_DEPTID = D.DEPT_ID 
+WHERE DEPT_LOCATION ='MUMBAI';
 
---Object-oriented (These databases hold data created using object-oriented programming languages. They focus on organizing objects rather than actions and data rather than logic. For instance, an image data record would be a data object, rather than an alphanumeric value.)
+CREATE PROCEDURE PROC_EMPLOYEESDETAILSLOCATIONWISE(@LOCATION AS VARCHAR(100))
+AS
+BEGIN
+      SELECT * FROM EMPLOYEE E 
+      INNER JOIN DEPARTMENT D
+      ON E.EMP_DEPTID = D.DEPT_ID 
+      WHERE DEPT_LOCATION = @LOCATION;
+END
+GO
+      SELECT * FROM EMPLOYEE E 
+      INNER JOIN DEPARTMENT D
+      ON E.EMP_DEPTID = D.DEPT_ID 
+      WHERE DEPT_LOCATION ='MUMBAI';
+GO
 
---Graph (These databases are a type of NoSQL database. They store, map and query relationships using concepts from graph theory.)
 
----4)WHAT ARE DATABASE CHALLENGES? data security, data integrity,database performance, database integration
-
----5) difference between mysql and sql?Mysql is a software and sql is a database language.
-
----6) what is difference between relational and non relational database ? table format and Documents
