@@ -1,3 +1,4 @@
+ scalarfunctions
 
 USE INFO_DB;
 ---SCALAR FUNCTION
