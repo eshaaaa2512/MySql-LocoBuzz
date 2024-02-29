@@ -1,3 +1,4 @@
+ dmltriggers
 USE INFO_DB;
 ---TRIGGERS
 --DML TRIGGERS
