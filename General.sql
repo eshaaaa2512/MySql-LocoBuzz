@@ -1,3 +1,4 @@
+ ddltriggers
 USE INFO_DB;
 ---TRIGGERS
 --DDL TRIGGERS
