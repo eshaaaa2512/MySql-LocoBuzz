@@ -1,20 +1,6 @@
+use INFO_DB;
+select * from employee;
 
-USE INFO_DB;
----SCALAR FUNCTION
-
----CREATE A FUNCTION TO GET EMPLOYEE SALARY Y PASSING EMPLOYEE NAME
-
-CREATE FUNCTION SALARY(@NAME AS VARCHAR(50))
-RETURNS DECIMAL 
-
-BEGIN
-        DECLARE @SAL DECIMAL;
-		SELECT @SAL =EMP_SALARY FROM EMPLOYEE
-		WHERE EMP_NAME = @NAME;
-		RETURN @SAL;
-END
-
-SELECT DBO.SALARY('MIKE');
-
-
-              
+--go to tools and select sql server profiler 
+-- can do filtering also in the column
+-- basically it's a tool for tracing,recreating and troubleshooting problem in mssql server
