@@ -1,3 +1,4 @@
+ profiler
 use INFO_DB;
 select * from employee;
 
