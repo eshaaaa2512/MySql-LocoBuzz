@@ -1,6 +1,16 @@
-use INFO_DB;
-select * from employee;
+USE INFO_DB;
+CREATE TABLE sample
+( Product Varchar(10),
+    Region Varchar (5),
+    Revenue int)
+INSERT INTO sample VALUES('A','EAST',100),('B','WEST',200),('C','NORTH',150),('D','SOUTH',120)
 
---go to tools and select sql server profiler 
--- can do filtering also in the column
--- basically it's a tool for tracing,recreating and troubleshooting problem in mssql server
+SELECT * FROM SAMPLE;
+
+SELECT 
+    Product,
+    [EAST], [WEST], [NORTH], [SOUTH]
+FROM 
+    (SELECT Product, Region, Revenue FROM sample) AS SourceTable
+PIVOT
+    (SUM(Revenue) FOR Region IN ([EAST], [WEST], [NORTH], [SOUTH])) AS PivotTable;
