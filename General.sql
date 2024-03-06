@@ -1,3 +1,4 @@
+ pivottables
 USE INFO_DB;
 CREATE TABLE sample
 ( Product Varchar(10),
