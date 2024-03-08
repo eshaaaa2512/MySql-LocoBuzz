@@ -1,5 +1,4 @@
-USE INFO_DB;
-
+  snapshot
 
 ---database snapshot
 
